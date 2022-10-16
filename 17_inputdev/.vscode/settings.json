@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "types.h": "c",
+        "input.h": "c",
+        "input-event-codes.h": "c",
+        "poll.h": "c",
+        "stdlib.h": "c",
+        "stdarg.h": "c"
+    }
+}

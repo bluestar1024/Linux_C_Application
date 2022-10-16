@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "input.h": "c",
+        "input-event-codes.h": "c"
+    }
+}
