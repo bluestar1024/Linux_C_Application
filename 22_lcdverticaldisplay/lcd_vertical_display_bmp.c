@@ -10,10 +10,9 @@
 #include <linux/fb.h>
 #include <sys/mman.h>
 
-short *screen_base = NULL;
-int width = 0;
-int height = 0;
-int line_length = 0;
+unsigned short *screen_base = NULL;
+unsigned int width = 0;
+unsigned int height = 0;
 
 typedef struct {
     short type;
@@ -41,14 +40,13 @@ void show_bmp_image(char *path)
 {
     bmp_file_header file_h;
     bmp_info_header info_h;
-    short *line_buf = NULL;
-    int line_bytes = 0;
-    int min_height = 0;
-    int min_line_bytes = 0;
+    unsigned int line_bytes = 0;
+    unsigned int min_width = 0;
+    unsigned int min_height = 0;
+    unsigned int max_height = height - 1;
     int fd = -1;
     int ret = 0;
-    int i = 0;
-    int temp = 0;
+    int i = 0, j = 0;
 
     fd = open(path, O_RDONLY);
     if(fd < 0)
@@ -87,7 +85,7 @@ void show_bmp_image(char *path)
             "image size: %d * %d\n"
             "image bpp: %d\n", \
             file_h.size, file_h.offset, info_h.size, info_h.width, info_h.height, info_h.bpp);
-    
+
     ret = lseek(fd, file_h.offset, SEEK_SET);
     if(ret < 0)
     {
@@ -98,72 +96,51 @@ void show_bmp_image(char *path)
 
     line_bytes = info_h.width * info_h.bpp / 8;
     printf("line_bytes: %d\n", line_bytes);
-    line_buf = malloc(line_bytes);
-    if(NULL == line_buf)
+    
+    unsigned short (*screen_temp)[info_h.width] = malloc(line_bytes * info_h.height);
+    if(NULL == screen_temp)
     {
         perror("malloc error");
         close(fd);
         exit(-1);
     }
 
-    if(line_length > line_bytes)
-        min_line_bytes = line_bytes;
-    else
-        min_line_bytes = line_length;
-    printf("min_line_bytes: %d\n", min_line_bytes);
-    
     if(info_h.height > 0)
     {
-        if(info_h.height > height)
-        {
-            min_height = height;
-            printf("min_height: %d, route1\n", min_height);
-            lseek(fd, (info_h.height - height) * line_bytes, SEEK_CUR);
-            if(ret < 0)
-            {
-                perror("lseek bmp middle error");
-                close(fd);
-                exit(-1);
-            }
-            screen_base += (height - 1) * width;
-        }
-        else
-        {
-            min_height = info_h.height;
-            printf("min_height: %d, route2\n", min_height);
-            screen_base += (info_h.height - 1) * width;
-        }
-
-        for(i = 0; i < min_height; i++, screen_base -= width)
-        {
-            read(fd, line_buf, line_bytes);
-            memcpy(screen_base, line_buf, min_line_bytes);
-        }
+        for(i = info_h.height - 1; i >= 0; i--)
+            read(fd, screen_temp[i], line_bytes);
+        puts("route 1!");
     }
     else
     {
-        temp = -info_h.height;
-        if(temp > height)
-            min_height = height;
-        else
-            min_height = temp;
-        printf("min_height: %d, route3\n", min_height);
-        
-        for(i = 0; i < min_height; i++, screen_base += width)
-        {
-            read(fd, line_buf, line_bytes);
-            memcpy(screen_base, line_buf, min_line_bytes);
-        }
+        info_h.height = -info_h.height;
+        for(i = 0; i < info_h.height; i++)
+            read(fd, screen_temp[i], line_bytes);
+        puts("route 2!");
     }
 
-    free(line_buf);
+    if(info_h.height > width)
+        min_width = width;
+    else
+        min_width = info_h.height;
+    printf("min_width: %d\n", min_width);
+    if(info_h.width > height)
+        min_height = height;
+    else
+        min_height = info_h.width;
+    printf("min_height: %d\n", min_height);
+
+    for(i = 0; i < min_width; i++)
+        for(j = 0; j < min_height; j++)
+            screen_base[(max_height - j) * width + i] = screen_temp[i][j];
+
+    free(screen_temp);
     close(fd);
 }
 
 int main(int argc, char *argv[])
 {
-    unsigned short *temp_base = NULL;
-    int screen_size = 0;
+    unsigned int screen_size = 0;
     struct fb_var_screeninfo fb_var = {0};
     struct fb_fix_screeninfo fb_fix = {0};
     int fd = -1;
@@ -200,14 +177,10 @@ int main(int argc, char *argv[])
     screen_size = fb_fix.line_length * fb_var.yres;
     width = fb_var.xres;
     height = fb_var.yres;
-    line_length = fb_fix.line_length;
 
-    printf("fb_fix.line_length: %d\n"
-            "xres: %d\n"
-            "yres: %d\n"
-            "screen_size: %d\n"
-            "line_length: %d\n", \
-            fb_fix.line_length, fb_var.xres, fb_var.yres, screen_size, line_length);
+    printf("screen_size: %d\n"
+            "lcd: %d * %d\n", \
+            screen_size, width, height);
     
     screen_base = mmap(NULL, screen_size, PROT_WRITE, MAP_SHARED, fd, 0);
     if(MAP_FAILED == (void *)screen_base)
@@ -216,12 +189,11 @@ int main(int argc, char *argv[])
         close(fd);
         exit(-1);
     }
-    temp_base = screen_base;
 
     memset(screen_base, 0x00, screen_size);
     show_bmp_image(argv[1]);
 
-    munmap(temp_base, screen_size);
+    munmap(screen_base, screen_size);
     close(fd);
     return 0;
 }

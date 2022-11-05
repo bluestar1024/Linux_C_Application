@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "ft2build.h": "c",
+        "ftheader.h": "c",
+        "freetype.h": "c",
+        "wchar.h": "c"
+    }
+}
