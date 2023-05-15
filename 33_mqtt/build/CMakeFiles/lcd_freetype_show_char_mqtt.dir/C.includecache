@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/dong/CApplication/33_mqtt/lcd_freetype_show_char_mqtt.c
+stdio.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+fcntl.h
+-
+string.h
+-
+unistd.h
+-
+stdlib.h
+-
+poll.h
+-
+linux/input.h
+-
+linux/fb.h
+-
+sys/mman.h
+-
+math.h
+-
+wchar.h
+-
+ft2build.h
+/home/dong/CApplication/33_mqtt/ft2build.h
+locale.h
+-
+
+/home/dong/CApplication/tools/freetype/include/freetype2/freetype/config/ftheader.h
+
+/home/dong/CApplication/tools/freetype/include/freetype2/ft2build.h
+freetype/config/ftheader.h
+-
+

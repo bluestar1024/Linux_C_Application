@@ -1,0 +1,3 @@
+/home/dong/CApplication/32_cmake/cmake_set_crosscompile2/build/CMakeFiles/edit_cache.dir
+/home/dong/CApplication/32_cmake/cmake_set_crosscompile2/build/CMakeFiles/rebuild_cache.dir
+/home/dong/CApplication/32_cmake/cmake_set_crosscompile2/build/CMakeFiles/hello.dir

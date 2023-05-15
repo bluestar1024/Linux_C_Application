@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "types.h": "c",
+        "*.tcc": "c",
+        "memory": "c",
+        "fstream": "c",
+        "iosfwd": "c",
+        "new": "c",
+        "sstream": "c",
+        "utility": "c"
+    }
+}

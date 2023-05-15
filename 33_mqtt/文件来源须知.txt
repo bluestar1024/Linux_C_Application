@@ -1,0 +1,3 @@
+本路径下的可执行文件包括lcd_bmp_show，lcd_jpeg_show，lcd_png_show，lcd_vertical_display_bmp，pcm_poll_capture等是在本文件夹前面的代码中已经编译好直接拷贝过来的，源文件包括lcd_followfingers_mqtt.c，lcd_freetype_show_char_mqtt.c，pcm_async_playback_ctl_mixer_mqtt.c，v4l2_mqtt.c等是在本文件夹前面的源代码基础上略加修改的。
+
+从前说-小阿七.wav 此音乐文件由于大小超过100MB上传不了，因此本文件夹上传的文件缺失 从前说-小阿七.wav。

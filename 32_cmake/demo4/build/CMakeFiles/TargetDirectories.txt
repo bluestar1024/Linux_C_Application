@@ -1,0 +1,8 @@
+/home/dong/CApplication/32_cmake/demo4/build/CMakeFiles/edit_cache.dir
+/home/dong/CApplication/32_cmake/demo4/build/CMakeFiles/rebuild_cache.dir
+/home/dong/CApplication/32_cmake/demo4/build/output_lh/CMakeFiles/edit_cache.dir
+/home/dong/CApplication/32_cmake/demo4/build/output_lh/CMakeFiles/rebuild_cache.dir
+/home/dong/CApplication/32_cmake/demo4/build/output_lh/CMakeFiles/libhello.dir
+/home/dong/CApplication/32_cmake/demo4/build/output_s/CMakeFiles/edit_cache.dir
+/home/dong/CApplication/32_cmake/demo4/build/output_s/CMakeFiles/rebuild_cache.dir
+/home/dong/CApplication/32_cmake/demo4/build/output_s/CMakeFiles/hello.dir

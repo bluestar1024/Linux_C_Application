@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [  //头文件路径
+                "${workspaceFolder}",  //workspaceFolder表示工作区目录
+                "/home/dong/CApplication/tools/paho.mqtt/include"
+            ],
+            "defines": [  //指定的宏
+                "MYRELEASE"
+            ],
+            "compilerPath": "/usr/bin/gcc",  //编译器路径
+            "cStandard": "c11",  //C语言标准版本
+            "cppStandard": "c++17",  //C++语言标准版本
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}

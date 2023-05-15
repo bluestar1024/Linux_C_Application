@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/dong/CApplication/33_mqtt/lcd_followfingers_mqtt.c
+stdio.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+fcntl.h
+-
+string.h
+-
+unistd.h
+-
+stdlib.h
+-
+poll.h
+-
+linux/input.h
+-
+linux/fb.h
+-
+sys/mman.h
+-
+
